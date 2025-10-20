@@ -1,4 +1,4 @@
-# Gemini model swith
+# Gemini model switch
 Switch between Gemini models with a keyboard shortcut.
 
 
