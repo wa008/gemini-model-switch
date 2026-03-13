@@ -11,16 +11,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switcherButton.click();
 
       setTimeout(() => {
-        const buttons = Array.from(document.querySelectorAll('.mat-mdc-menu-item.mat-focus-indicator.bard-mode-list-button')).slice(0, 2);
+        const buttons = Array.from(document.querySelectorAll('.mat-mdc-menu-item.mat-focus-indicator.bard-mode-list-button')).slice(0, 3);
         console.log(`Gemini Model Switch: Found ${buttons.length} buttons.`);
 
-        if (buttons.length === 2) {
+        if (buttons.length >= 2) {
           const selectedButtonIndex = buttons.findIndex(button => button.querySelector('[fonticon="check_circle"]'));
 
           if (selectedButtonIndex !== -1) {
-            const otherButtonIndex = 1 - selectedButtonIndex;
+            const otherButtonIndex = (selectedButtonIndex + 1) % buttons.length;
             console.log(`Gemini Model Switch: Clicking button ${otherButtonIndex}.`);
             buttons[otherButtonIndex].click();
+
+            setTimeout(() => {
+              const composer = document.querySelector('rich-textarea div[contenteditable="true"], div.ql-editor, div[role="textbox"]');
+              if (composer) {
+                composer.focus();
+                console.log('Gemini Model Switch: Refocused input box.');
+              } else {
+                console.log('Gemini Model Switch: Input box not found.');
+              }
+            }, 100); // Wait for the menu to close and UI to stabilize
           }
           else {
             console.log(`cannot find selectedButtonIndex, selectedButtonIndex: ${selectedButtonIndex}`);
