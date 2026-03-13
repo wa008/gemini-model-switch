@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Gemini Model Switch",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Switch between Gemini models with a keyboard shortcut.",
   "icons": {
       "32": "images/gemini-switch-icon-32.png",
